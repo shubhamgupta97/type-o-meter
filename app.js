@@ -1,4 +1,10 @@
+// const para = document.querySelector('p');
+// const arr = para.innerText.split("");
+
+const quotes = data;
 const para = document.querySelector('p');
+para.innerText = quotes[Math.floor(Math.random() * quotes.length)].text;
+
 const arr = para.innerText.split("");
 
 const textArea = document.querySelector('textarea');
@@ -53,7 +59,7 @@ function stopTimer() {
         clearInterval(interval);
         interval = null;
         timerStarted = false;
-        timeSpan.innerText = `${Math.floor(time*arr.length/(5*60))} wpm`;
+        timeSpan.innerText = `${Math.floor(60*arr.length/(5*time))} wpm`;
         window.setInterval(() => textArea.disabled = true, 1);
     }
 }
