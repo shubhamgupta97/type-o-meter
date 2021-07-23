@@ -53,8 +53,8 @@ function stopTimer() {
         clearInterval(interval);
         interval = null;
         timerStarted = false;
-        timeSpan.innerText = `${time}s`;
-        textArea.disabled = true;
+        timeSpan.innerText = `${Math.floor(time*arr.length/(5*60))} wpm`;
+        window.setInterval(() => textArea.disabled = true, 1);
     }
 }
 
