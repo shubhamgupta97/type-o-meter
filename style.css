@@ -64,6 +64,10 @@ div.container {
     padding: 10px;
 }
 
+div p {
+    text-align: justify;
+}
+
 .red {
     color: red;
 }
