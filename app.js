@@ -5,16 +5,19 @@ const quotes = data;
 const para = document.querySelector('p');
 para.innerText = quotes[Math.floor(Math.random() * quotes.length)].text;
 
-const arr = para.innerText.split("");
+let arr = para.innerText.split("");
 
 const textArea = document.querySelector('textarea');
 let nextCorrect = 0;
 let charactersEntered = 0;
 
 const timeSpan = document.querySelector('p span');
+const restartBtn = document.querySelector('#again-btn');
 
 let timerStarted = false;
 let interval, time = 0;
+
+textArea.focus();
 
 textArea.addEventListener('keydown', (e) => {
 
@@ -47,6 +50,22 @@ textArea.addEventListener('keydown', (e) => {
         stopTimer();
 });
 
+restartBtn.addEventListener('click', () => {
+    restartBtn.style.display = 'none';
+    textArea.disabled = false;
+    textArea.value = "";
+    textArea.focus();
+    timeSpan.innerText = "";
+    para.innerText = quotes[Math.floor(Math.random() * quotes.length)].text;
+    arr = para.innerText.split("");
+    nextCorrect = 0;
+    charactersEntered = 0;
+    time = 0;
+    timerStarted = false;
+    clearInterval(interval);
+    interval = null;
+});
+
 function startTimer() {
     if(timerStarted == false) {
         timerStarted = true;
@@ -57,14 +76,19 @@ function startTimer() {
 function stopTimer() {
     if(interval) {
         clearInterval(interval);
-        interval = null;
-        timerStarted = false;
-        timeSpan.innerText = `${Math.floor(60*arr.length/(5*time))} wpm`;
-        window.setInterval(() => textArea.disabled = true, 1);
+        displayResult();
     }
 }
 
 function makeRed() {
     this.classList.remove('green');
     this.classList.add('red');
+}
+
+function displayResult() {
+    interval = null;
+    timerStarted = false;
+    timeSpan.innerText = `${Math.floor(60*arr.length/(5*time))} wpm`;
+    restartBtn.style.display = 'inline-block';
+    interval = setInterval(() => textArea.disabled = true, 1);
 }
