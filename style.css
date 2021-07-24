@@ -6,8 +6,8 @@ html {
 
 .bg-image {
 
-    background-image: url(./Images/1.jpeg);
-    background-position: bottom;
+    background-image: url(./Images/2.jpeg);
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
@@ -40,10 +40,13 @@ textarea {
     color: green;
     resize: none;
     padding: 10px;
+    margin: 20px 0;
 }
 
-header {
+header.container {
     padding: 30px 0 100px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 header h1 {
@@ -66,6 +69,7 @@ div.container {
 
 div p {
     text-align: justify;
+    padding: 10px;
 }
 
 .red {
