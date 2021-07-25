@@ -10,6 +10,7 @@ let nextCorrect = 0;
 let charactersEntered = 0;
 let timerStarted = false;
 let interval, time = 0;
+let isIncorrect = false;
 
 textArea.focus();
 
@@ -21,6 +22,7 @@ textArea.addEventListener('keydown', (e) => {
         if(charactersEntered <= nextCorrect) {
             textArea.classList.remove('red');
             textArea.classList.add('green');
+            isIncorrect = false;
 
             if(charactersEntered <= nextCorrect-1)
                 nextCorrect = (nextCorrect>0)?(nextCorrect-1):0;
@@ -29,15 +31,13 @@ textArea.addEventListener('keydown', (e) => {
     } else if (validCharacter(e.keyCode)) {
 
         startTimer();
+        charactersEntered++;
 
-
-        if(e.key == arr[nextCorrect] || e.code === "Quote" && arr[nextCorrect].charCodeAt(0) === 8217) {
+        if(!isIncorrect && (e.key == arr[nextCorrect] || e.code === "Quote" && arr[nextCorrect].charCodeAt(0) === 8217)) {
             nextCorrect++;
-            charactersEntered++;
-            //console.log(`nextCorrect:${nextCorrect}; charactersEntered:${charactersEntered}`);
         } else {
-            charactersEntered++;
-            //console.log(`No: ${arr[nextCorrect]} vs ${e.key}\ni:${nextCorrect}; charactersEntered:${charactersEntered}`);
+
+            isIncorrect = true;
 
             textArea.classList.remove('green');
             textArea.classList.add('red');
@@ -66,7 +66,6 @@ restartBtn.addEventListener('click', () => {
 
 function startTimer() {
     if(timerStarted == false) {
-        console.log('Timer started');
         timerStarted = true;
         interval = setInterval(() => time++, 1000);
     }
@@ -74,7 +73,6 @@ function startTimer() {
 
 function stopTimer() {
     if(interval) {
-        console.log('Timer stopped');
         clearInterval(interval);
         displayResult();
     }
