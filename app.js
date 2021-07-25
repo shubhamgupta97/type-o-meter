@@ -1,19 +1,13 @@
-// const para = document.querySelector('p');
-// const arr = para.innerText.split("");
-
 const quotes = data;
 const para = document.querySelector('p');
-para.innerText = quotes[Math.floor(Math.random() * quotes.length)].text;
-
-let arr = para.innerText.split("");
-
 const textArea = document.querySelector('textarea');
-let nextCorrect = 0;
-let charactersEntered = 0;
-
 const timeSpan = document.querySelector('p span');
 const restartBtn = document.querySelector('#again-btn');
 
+para.innerText = quotes[Math.floor(Math.random() * quotes.length)].text;
+let arr = para.innerText.split("");
+let nextCorrect = 0;
+let charactersEntered = 0;
 let timerStarted = false;
 let interval, time = 0;
 
@@ -21,9 +15,7 @@ textArea.focus();
 
 textArea.addEventListener('keydown', (e) => {
 
-    startTimer();
-
-    if(e.code === 'Backspace') {
+    if (e.code === 'Backspace') {
         charactersEntered = (charactersEntered>0) ? (charactersEntered-1) : 0;
 
         if(charactersEntered <= nextCorrect) {
@@ -34,16 +26,22 @@ textArea.addEventListener('keydown', (e) => {
                 nextCorrect = (nextCorrect>0)?(nextCorrect-1):0;
         }
 
-    } else if(e.key == arr[nextCorrect] || e.code === "Quote" && arr[nextCorrect].charCodeAt(0) === 8217) {
-        nextCorrect++;
-        charactersEntered++;
-        console.log(`nextCorrect:${nextCorrect}; charactersEntered:${charactersEntered}`);
-    } else if(e.key !== 'Shift' && e.key !== 'Caps' && e.key !== 'Backspace' && e.key !== "Control" && e.key !== "Alt"){
-        charactersEntered++;
-        console.log(`No: ${arr[nextCorrect]} vs ${e.key}\ni:${nextCorrect}; charactersEntered:${charactersEntered}`);
+    } else if (validCharacter(e.keyCode)) {
 
-        textArea.classList.remove('green');
-        textArea.classList.add('red');
+        startTimer();
+
+
+        if(e.key == arr[nextCorrect] || e.code === "Quote" && arr[nextCorrect].charCodeAt(0) === 8217) {
+            nextCorrect++;
+            charactersEntered++;
+            //console.log(`nextCorrect:${nextCorrect}; charactersEntered:${charactersEntered}`);
+        } else {
+            charactersEntered++;
+            //console.log(`No: ${arr[nextCorrect]} vs ${e.key}\ni:${nextCorrect}; charactersEntered:${charactersEntered}`);
+
+            textArea.classList.remove('green');
+            textArea.classList.add('red');
+        }
     }
 
     if(nextCorrect == arr.length)
@@ -68,6 +66,7 @@ restartBtn.addEventListener('click', () => {
 
 function startTimer() {
     if(timerStarted == false) {
+        console.log('Timer started');
         timerStarted = true;
         interval = setInterval(() => time++, 1000);
     }
@@ -75,14 +74,10 @@ function startTimer() {
 
 function stopTimer() {
     if(interval) {
+        console.log('Timer stopped');
         clearInterval(interval);
         displayResult();
     }
-}
-
-function makeRed() {
-    this.classList.remove('green');
-    this.classList.add('red');
 }
 
 function displayResult() {
@@ -91,4 +86,16 @@ function displayResult() {
     timeSpan.innerText = `${Math.floor(60*arr.length/(5*time))} wpm`;
     restartBtn.style.display = 'inline-block';
     interval = setInterval(() => textArea.disabled = true, 1);
+}
+
+function validCharacter(keycode) {
+    let valid = 
+        (keycode > 47 && keycode < 58)   || // number keys
+        keycode == 32 || keycode == 13   || // spacebar & return key(s)
+        (keycode > 64 && keycode < 91)   || // letter keys
+        (keycode > 95 && keycode < 112)  || // numpad keys
+        (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+        (keycode > 218 && keycode < 223);   // [\]' (in order)
+
+    return valid;
 }
