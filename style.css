@@ -4,9 +4,17 @@ html {
     padding: 0;
 }
 
+body {
+    color: white;
+    font-size: 1.7rem;
+    text-align: center;
+}
+
+
+
 .bg-image {
 
-    background-image: url(./Images/2.jpeg);
+    background-image: url(./Images/background.jpeg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -24,10 +32,53 @@ html {
 	width: 100%;
 }
 
-body {
-    color: white;
-    font-size: 1.7rem;
-    text-align: center;
+.container {
+    position: relative;
+}
+
+header.container {
+    padding: 30px 0 100px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#heading {
+    background: rgba(0,0,0,0.5);
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 3rem;
+    padding: 20px 0px;
+}
+
+main.container {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+blockquote p {
+    padding: 10px;
+    text-align: justify;
+}
+
+blockquote p::before {
+    content: '\201C\ ';
+    color: rgb(130, 130, 130);
+    font-size: 1.1em;
+}
+
+blockquote p::after {
+    content: '\ \201D';
+    color: rgb(130, 130, 130);
+    font-size: 1.1em;
+}
+
+figcaption.blockquote-footer {
+    text-align: right;
+    margin-right: 10px;
+    font-style: italic;
+    color: rgba(256,256,256,0.7);
 }
 
 textarea {
@@ -43,36 +94,6 @@ textarea {
     width: 100%;
 }
 
-header.container {
-    padding: 30px 0 100px;
-    padding-left: 0;
-    padding-right: 0;
-}
-
-header h1 {
-    background: rgba(0,0,0,0.5);
-    border: 2px solid black;
-    border-radius: 10px;
-    font-size: 3rem;
-    padding: 20px 0px;
-}
-
-.container {
-    position: relative;
-}
-
-div.container {
-    background: rgba(0, 0, 0, 0.5);
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-div p {
-    padding: 10px;
-    text-align: justify;
-}
-
 #again-btn {
     border-radius: 10px;
     display: none;
@@ -81,15 +102,15 @@ div p {
     padding: .7rem 2rem;
 }
 
-.red {
+.incorrect {
     color: #5f5f5f;
 }
 
-#time {
+#speed {
     font-size: 3rem;
     text-align: left;
 }
 
-#time span {
+#speed span {
     color: #21d08e;
 }

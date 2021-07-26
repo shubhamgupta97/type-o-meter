@@ -1,18 +1,18 @@
 const quotes = data;
-const para = document.querySelector('p');
+const para = document.querySelector('figure blockquote p');
+const caption = document.querySelector('figcaption');
 const textArea = document.querySelector('textarea');
-const timeSpan = document.querySelector('p span');
+const speedSpan = document.querySelector('#speed span');
 const restartBtn = document.querySelector('#again-btn');
 
-para.innerText = quotes[Math.floor(Math.random() * quotes.length)].text;
-let arr = para.innerText.split("");
-let nextCorrect = 0;
-let charactersEntered = 0;
-let timerStarted = false;
-let interval, time = 0;
-let isIncorrect = false;
+let arr = [];
+let nextCorrect;
+let charactersEntered;
+let timerStarted;
+let interval, time;
+let isIncorrect;
 
-textArea.focus();
+initialize();
 
 textArea.addEventListener('keydown', (e) => {
 
@@ -20,8 +20,7 @@ textArea.addEventListener('keydown', (e) => {
         charactersEntered = (charactersEntered>0) ? (charactersEntered-1) : 0;
 
         if(charactersEntered <= nextCorrect) {
-            textArea.classList.remove('red');
-            textArea.classList.add('green');
+            textArea.classList.remove('incorrect');
             isIncorrect = false;
 
             if(charactersEntered <= nextCorrect-1)
@@ -33,36 +32,42 @@ textArea.addEventListener('keydown', (e) => {
         startTimer();
         charactersEntered++;
 
-        if(!isIncorrect && (e.key == arr[nextCorrect] || e.code === "Quote" && arr[nextCorrect].charCodeAt(0) === 8217)) {
+        if(!isIncorrect && (e.key === arr[nextCorrect] || e.code === "Quote" && arr[nextCorrect].charCodeAt(0) === 8217)) {
             nextCorrect++;
         } else {
-
             isIncorrect = true;
-
-            textArea.classList.remove('green');
-            textArea.classList.add('red');
+            textArea.classList.add('incorrect');
         }
     }
 
-    if(nextCorrect == arr.length)
+    if(nextCorrect === arr.length)
         stopTimer();
 });
 
 restartBtn.addEventListener('click', () => {
+    initialize();
+});
+
+function initialize() {
+    isIncorrect = false;
     restartBtn.style.display = 'none';
     textArea.disabled = false;
     textArea.value = "";
     textArea.focus();
-    timeSpan.innerText = "";
-    para.innerText = quotes[Math.floor(Math.random() * quotes.length)].text;
+    speedSpan.innerText = "";
+    let quote = quotes[Math.floor(Math.random() * quotes.length)];
+    para.innerText = quote.text;
+    caption.innerText = `${quote.source}`;
     arr = para.innerText.split("");
     nextCorrect = 0;
     charactersEntered = 0;
     time = 0;
     timerStarted = false;
-    clearInterval(interval);
-    interval = null;
-});
+    if(interval) {
+        clearInterval(interval);
+        interval = null;
+    }
+}
 
 function startTimer() {
     if(timerStarted == false) {
@@ -81,7 +86,7 @@ function stopTimer() {
 function displayResult() {
     interval = null;
     timerStarted = false;
-    timeSpan.innerText = `${Math.floor(60*arr.length/(5*time))} wpm`;
+    speedSpan.innerText = `${Math.floor(60*arr.length/(5*time))} wpm`;
     restartBtn.style.display = 'inline-block';
     interval = setInterval(() => textArea.disabled = true, 1);
 }
