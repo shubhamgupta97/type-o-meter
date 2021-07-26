@@ -10,8 +10,6 @@ body {
     text-align: center;
 }
 
-
-
 .bg-image {
 
     background-image: url(./Images/background.jpeg);
@@ -46,8 +44,14 @@ header.container {
     background: rgba(0,0,0,0.5);
     border: 2px solid black;
     border-radius: 10px;
+    color: rgb(83 208 143);
     font-size: 3rem;
     padding: 20px 0px;
+    text-transform: uppercase;
+}
+
+#heading span {
+    color: rgb(100, 167, 132);
 }
 
 main.container {
@@ -83,7 +87,7 @@ figcaption.blockquote-footer {
 
 textarea {
     background:rgba(0, 0, 0, 0.6);
-    border-color: rgba(256,256,256,0.1);
+    border: 1px solid rgb(0,0,0);
     border-radius: 10px;
     color: #00ff9f;
     height: 240px;
