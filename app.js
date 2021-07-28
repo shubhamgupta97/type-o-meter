@@ -27,7 +27,7 @@ textArea.addEventListener('keydown', (e) => {
                 nextCorrect = (nextCorrect>0)?(nextCorrect-1):0;
         }
 
-    } else if (validCharacter(e.keyCode)) {
+    } else if (validCharacter(e.keyCode,e.code)) {
 
         startTimer();
         charactersEntered++;
@@ -98,14 +98,15 @@ function displayResult() {
     interval = setInterval(() => textArea.disabled = true, 1);
 }
 
-function validCharacter(keycode) {
+function validCharacter(keycode, code) {
     let valid = 
         (keycode > 47 && keycode < 58)   || // number keys
         keycode == 32 || keycode == 13   || // spacebar & return key(s)
         (keycode > 64 && keycode < 91)   || // letter keys
         (keycode > 95 && keycode < 112)  || // numpad keys
         (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
-        (keycode > 218 && keycode < 223);   // [\]' (in order)
+        (keycode > 218 && keycode < 223) || // [\]' (in order)
+        code === "Minus" || code === "Semicolon"; // for firefox
 
     return valid;
 }
