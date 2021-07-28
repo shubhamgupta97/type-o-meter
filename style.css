@@ -146,3 +146,15 @@ textarea::-webkit-scrollbar {
         font-size: 11px;
     }
 }
+
+@media only screen and (max-device-width: 480px) {
+    textarea, figcaption, .score, blockquote p::before, blockquote p::after {
+        display: none;
+    }
+}
+
+@media only screen and (max-device-height: 480px) {
+    textarea, figcaption, .score, blockquote p::before, blockquote p::after {
+        display: none;
+    }
+}
