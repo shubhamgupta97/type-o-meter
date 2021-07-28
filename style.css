@@ -7,6 +7,7 @@ html {
 body {
     color: white;
     font-size: 1.7rem;
+    font-family: 'Ubuntu', sans-serif;
     text-align: center;
 }
 
@@ -17,7 +18,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     width: 100%;
 
 }
@@ -30,12 +31,19 @@ body {
 	width: 100%;
 }
 
+@supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+    .bg-image {
+      filter: blur(10px);
+      transform: scale(1.03);
+    }
+  }
+
 .container {
     position: relative;
 }
 
 header.container {
-    padding: 30px 0 100px;
+    padding: 30px 0 6.25rem;
     padding-left: 0;
     padding-right: 0;
 }
@@ -90,12 +98,20 @@ textarea {
     border: 1px solid rgb(0,0,0);
     border-radius: 10px;
     color: #00ff9f;
-    height: 240px;
+    height: 15rem;
     margin: 20px 0;
     padding: 10px;
     resize: none;
     text-align: justify;
     width: 100%;
+
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll; 
+}
+
+textarea::-webkit-scrollbar {
+    display: none;
 }
 
 #again-btn {
@@ -117,4 +133,28 @@ textarea {
 
 #speed span {
     color: #21d08e;
+}
+
+@media (max-width: 1536px) {
+    html {
+        font-size: 13.5px;
+    }
+}
+
+@media (max-width: 1366px) {
+    html {
+        font-size: 11px;
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
+    textarea, figcaption, .score, blockquote p::before, blockquote p::after {
+        display: none;
+    }
+}
+
+@media only screen and (max-device-height: 480px) {
+    textarea, figcaption, .score, blockquote p::before, blockquote p::after {
+        display: none;
+    }
 }

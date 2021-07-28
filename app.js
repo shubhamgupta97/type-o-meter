@@ -48,7 +48,14 @@ restartBtn.addEventListener('click', () => {
     initialize();
 });
 
+window.addEventListener("orientationchange", () => {
+    initialize();
+});
+
 function initialize() {
+
+    if(isMobile()) return;
+
     isIncorrect = false;
     restartBtn.style.display = 'none';
     textArea.disabled = false;
@@ -101,4 +108,11 @@ function validCharacter(keycode) {
         (keycode > 218 && keycode < 223);   // [\]' (in order)
 
     return valid;
+}
+
+function isMobile() {
+    if(window.screen.width < 480 || window.screen.height < 480) {
+        para.innerText = "Please open the page on a desktop or a laptop. \n\nThank you :)";
+        return true;
+    }
 }
